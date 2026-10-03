@@ -14,6 +14,8 @@ py -3.12 -m venv .venv
 
 Target contract runner: GenLayer `0.2.16`. The Direct Mode tests call the contract's public entry points and mock canonical GitHub retrieval and the consensus boundary. They are not live Studionet evidence.
 
+Live StudioNet contract: [`0x69986c4475740EcDd5bBeB2deA4cE72fccE78dd7`](https://explorer-studio.genlayer.com/address/0x69986c4475740EcDd5bBeB2deA4cE72fccE78dd7). The finalized two-wallet lifecycle and adversarial guard evidence are recorded in [`verification/studionet-verification.md`](verification/studionet-verification.md); canonical counts are `1 series / 1 assessed`.
+
 Fresh public-source smoke check:
 
 ```powershell
@@ -26,7 +28,6 @@ python scripts\check_upstream_sources.py
 cd frontend
 npm install
 Copy-Item ..\.env.example .env.local
-# Set VITE_CONTRACT_ADDRESS after deployment
 npm run dev
 ```
 

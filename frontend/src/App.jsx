@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createClient } from 'genlayer-js';
 import { studionet } from 'genlayer-js/chains';
-import { TransactionStatus } from 'genlayer-js/types';
 import { ArrowDownRight, ArrowUpRight, CalendarDays, Check, Clock3, Compass, ExternalLink, Globe2, LoaderCircle, Plus, RefreshCw, ShieldAlert, WalletCards } from 'lucide-react';
 
-const DEFAULT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS || '';
+const DEFAULT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS || '0x69986c4475740EcDd5bBeB2deA4cE72fccE78dd7';
 const EXPLORER = 'https://explorer-studio.genlayer.com';
 const blank = { title: '', tzid: 'America/Winnipeg', local_start: '2026-10-01T09:30', rrule: 'FREQ=WEEKLY;INTERVAL=1;COUNT=6', intent: 'PRESERVE_LOCAL_TIME', old_release: '2026d', new_release: '2026e' };
 const short = value => value?.length > 19 ? `${value.slice(0, 9)}…${value.slice(-6)}` : value;
@@ -69,6 +68,17 @@ export default function App() {
     } catch (e) { setNotice(e?.message || 'Wallet connection was cancelled.'); }
   }
 
+  async function waitFinalized(hash) {
+    for (let attempt = 0; attempt < 90; attempt++) {
+      const detail = await reader().getTransaction({ hash });
+      const status = detail.statusName || detail.status_name || detail.status;
+      if (status === 'FINALIZED' || status === 7) return detail;
+      if (['CANCELED', 'UNDETERMINED', 8, 9].includes(status)) throw new Error(`Transaction ended with ${status}.`);
+      await new Promise(resolve => setTimeout(resolve, 5000));
+    }
+    throw new Error('Finality is taking longer than expected. Keep the Explorer link and refresh state shortly.');
+  }
+
   async function write(functionName, args) {
     if (lock.current) return;
     lock.current = true; setBusy(true); setTxHash(''); setNotice('');
@@ -80,7 +90,7 @@ export default function App() {
       const hash = await client.writeContract({ address, functionName, args });
       setTxHash(typeof hash === 'string' ? hash : hash?.txId || '');
       setNotice('Transaction submitted. Waiting for finalized consensus…');
-      await reader().waitForTransactionReceipt({ hash: typeof hash === 'string' ? hash : hash.txId, status: TransactionStatus.FINALIZED });
+      await waitFinalized(typeof hash === 'string' ? hash : hash.txId);
       await refresh();
       setNotice(`${functionName} finalized. Contract state refreshed.`);
       return true;

@@ -27,4 +27,10 @@ Command: `npm --prefix frontend run build`
 
 Result: **PASS**. Vite emitted a production bundle. The current dependency bundle produces a non-blocking chunk-size warning; the app remains functional and can be code-split later.
 
-Browser preview: loaded successfully at desktop width with the supplied logo, StudioNet indicator, permissionless wallet control, schedule form, visible contract-address field, public register and authority-source links. A deployment address is intentionally not fabricated.
+Browser preview: loaded successfully at desktop width with the supplied logo, StudioNet indicator, permissionless wallet control, schedule form, visible deployed contract address, Explorer control, public register and authority-source links.
+
+## StudioNet deployment readback
+
+Configured contract: [`0x69986c4475740EcDd5bBeB2deA4cE72fccE78dd7`](https://explorer-studio.genlayer.com/address/0x69986c4475740EcDd5bBeB2deA4cE72fccE78dd7), chain ID `61999`.
+
+Initial public `get_counts` read on 2026-10-03 returned `{"assessed_count":0,"series_count":0}`. A subsequent two-wallet lifecycle and two adversarial guard calls finalized successfully; canonical counts are now `{"assessed_count":1,"series_count":1}`. See [`studionet-verification.md`](studionet-verification.md) for transaction links and exact post-state.
