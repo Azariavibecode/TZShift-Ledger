@@ -137,7 +137,7 @@ export default function App() {
           <div className="contract-line"><span>ACTIVE CONTRACT</span>{configured ? <><code>{short(address)}</code><a href={`${EXPLORER}/address/${address}`} target="_blank" rel="noreferrer" title="Open contract in GenLayer Explorer"><ExternalLink size={14} /></a></> : <b>Not configured</b>}</div>
           {!configured && <div className="address-entry"><input aria-label="Contract address" value={address} onChange={e => { setAddress(e.target.value.trim()); localStorage.setItem('tzshift-contract', e.target.value.trim()); }} placeholder="Paste deployed contract address" /></div>}
           {error && <div className="error-box">{error}</div>}
-          {notice && <div className="notice-box">{notice}{txHash && <a href={`${EXPLORER}/tx/${txHash}`} target="_blank" rel="noreferrer">View transaction <ExternalLink size={12} /></a>}</div>}
+          {notice && <div className="notice-box">{notice}{txHash && <a href={`${EXPLORER}/transactions/${txHash}`} target="_blank" rel="noreferrer">View transaction <ExternalLink size={12} /></a>}</div>}
           <div className="series-list">
             {loading && <div className="empty"><LoaderCircle className="spin" size={18} /> Syncing authoritative contract state…</div>}
             {!loading && !items.length && <div className="empty"><Clock3 size={20} /><span>No series yet. Connect a wallet and register the first one.</span></div>}
