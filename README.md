@@ -1,5 +1,7 @@
 # TZShift Ledger
 
+Live application: [https://tzshift-ledger.pages.dev](https://tzshift-ledger.pages.dev)
+
 TZShift Ledger is a permissionless GenLayer dApp for inspecting how an official time-zone database release change may affect a bounded recurring local-time schedule. Any wallet can register and assess a series; the deployer has no privileged role. The UI is a client of the Intelligent Contract, not a second source of truth.
 
 The contract pins evidence to the upstream `eggert/tz` repository linked by IANA, exact release tags, commits, Git trees and raw blob hashes. It compares the named zone's machine-readable rule source across two releases. Outcomes are deliberately bounded: `POTENTIAL_SHIFT`, `NO_LISTED_CHANGE`, or `UNRESOLVED`. `NO_LISTED_CHANGE` is not a guarantee about future releases or every downstream tzdb build.

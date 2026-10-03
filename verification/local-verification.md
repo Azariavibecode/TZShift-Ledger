@@ -33,6 +33,14 @@ Result: **3 passed** in jsdom. The component-level browser tests retain and expo
 
 Production dependency audit: `npm audit --omit=dev` returned **0 vulnerabilities** after upgrading the pinned `viem` dependency to `2.57.2`.
 
+## Cloudflare Pages deployment
+
+Production URL: [https://tzshift-ledger.pages.dev](https://tzshift-ledger.pages.dev)
+
+Immutable deployment: [https://07588a2c.tzshift-ledger.pages.dev](https://07588a2c.tzshift-ledger.pages.dev)
+
+Cloudflare deployment `07588a2c-dbc4-42ad-9eeb-d0d27703a940` was built from Git commit `4148968e46957db1a957e7d4f9873eb968d110eb` on branch `main`. Both URLs returned HTTP `200` and contained the expected `TZShift Ledger` application title after deployment.
+
 Browser preview: loaded successfully at desktop width with the supplied logo, StudioNet indicator, permissionless wallet control, schedule form, visible deployed contract address, Explorer control, public register and authority-source links.
 
 ## StudioNet deployment readback
